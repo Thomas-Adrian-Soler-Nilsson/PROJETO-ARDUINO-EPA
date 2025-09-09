@@ -43,3 +43,21 @@ O sistema conta com dois sensores digitais (um para cada direção) e dois conju
 | 9            | LED Verde - Semáforo 2   |
 | 10           | LED Amarelo - Semáforo 2 |
 | 11           | LED Vermelho - Semáforo 2|
+
+👤 Autores
+
+Thomas Adrian
+https://github.com/Thomas-Adrian-Soler-Nilsson
+<p align="left">
+  <a href="https://www.linkedin.com/in/thomas-adrian" target="blank">
+    <img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg" alt="https://www.linkedin.com/in/thomas-adrian" height="30" width="40" />
+  </a>
+</p>
+
+Samuel Amate
+https://github.com/SamuelAmate
+<p align="left">
+  <a href="https://linkedin.com/in/samuel-amate" target="blank">
+    <img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg" alt="https://linkedin.com/in/samuel-amate" height="30" width="40" />
+  </a>
+</p>
