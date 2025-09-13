@@ -15,8 +15,8 @@ O sistema conta com dois sensores digitais (um para cada direção) e dois conju
 
 - 🚗 Sensor 1 ativo, Sensor 2 inativo → Semáforo 1 verde, Semáforo 2 vermelho  
 - 🚗 Sensor 2 ativo, Sensor 1 inativo → Semáforo 2 verde, Semáforo 1 vermelho  
-- 🚦 Ambos sensores ativos → ambos amarelos acesos (alerta)  
-- ❌ Nenhum sensor ativo → ambos amarelos piscando intermitente  
+- 🚦  Nenhum sensor ativo → ambos amarelos piscando intermitente
+- ❌ Ambos sensores ativos → ambos amarelos acesos (alerta)
 
 ---
 
