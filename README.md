@@ -1,15 +1,55 @@
-🚦 Projeto Semáforo Inteligente com Sensores – Arduino
+🚦 Projeto: Semáforo Inteligente com Sensores – Arduino
 
-Este projeto implementa um sistema de controle de semáforos inteligentes usando um Arduino.
-O código gerencia dois cruzamentos (Semáforo 1 e Semáforo 2) com LEDs representando as luzes verde, amarela e vermelha, além de utilizar sensores de presença para detectar o fluxo de veículos e ajustar o comportamento do semáforo em tempo real.
+Este projeto simula um sistema de semáforo inteligente utilizando o Arduino.
+O sistema controla dois semáforos e utiliza sensores digitais para detectar a presença de veículos, alternando automaticamente o fluxo conforme a demanda de tráfego.
 
-🧠 Lógica do Sistema
+Quando nenhum sensor é acionado, o sistema funciona em modo automático com tempos pré-definidos.
+Quando um dos sensores detecta veículo, ele prioriza o respectivo semáforo.
 
-O sistema possui dois modos de funcionamento principais:
+📋 Descrição
 
-1. Modo Automático (sem sensores acionados)
+O sistema é composto por dois conjuntos de LEDs representando os semáforos e dois sensores digitais que simulam a detecção de veículos.
 
-Quando ambos os sensores estão ativados (HIGH), o sistema executa um ciclo temporizado fixo:
+Semáforo 1:
+
+Verde1 (pino 3)
+
+Amarelo1 (pino 2)
+
+Vermelho1 (pino 4)
+
+Semáforo 2:
+
+Verde2 (pino 11)
+
+Amarelo2 (pino 10)
+
+Vermelho2 (pino 9)
+
+Sensores:
+
+Sensor Semáforo 1 (pino 8)
+
+Sensor Semáforo 2 (pino 7)
+
+⚙️ Lógica de Funcionamento
+
+O sistema opera em dois modos:
+
+🚗 Modo com Sensores (Controle Dinâmico)
+
+Sensor 1 ativo (HIGH) e Sensor 2 inativo (LOW) →
+Semáforo 1 Verde, Semáforo 2 Vermelho
+
+Sensor 2 ativo (HIGH) e Sensor 1 inativo (LOW) →
+Semáforo 2 Verde, Semáforo 1 Vermelho
+
+Troca de estado:
+Antes de mudar de verde para vermelho, o semáforo passa 2 segundos no amarelo para garantir a segurança.
+
+⏱️ Modo Automático (Sem Acionamento dos Sensores)
+
+Quando ambos os sensores estão ativos (HIGH), o sistema segue um ciclo temporizado:
 
 Ciclo	Tempo (ms)	Semáforo 1	Semáforo 2
 1	0 – 5000	Verde	Vermelho
@@ -19,58 +59,58 @@ Ciclo	Tempo (ms)	Semáforo 1	Semáforo 2
 
 Após 10 segundos, o ciclo é reiniciado automaticamente.
 
-2. Modo Sensores (tráfego dinâmico)
+🔌 Componentes Utilizados
 
-Quando um dos sensores detecta um veículo (HIGH) e o outro não (LOW), o semáforo correspondente recebe prioridade:
+1x Arduino Uno (ou compatível)
 
-🚗 Sensor 1 ativo (Semáforo 1 = HIGH / Semáforo 2 = LOW)
+6x LEDs (2 verdes, 2 amarelos, 2 vermelhos – com resistores embutidos)
 
-Semáforo 1 → Verde
+2x Sensores digitais (simulando sensores de presença)
 
-Semáforo 2 → Vermelho
+Jumpers
 
-🚗 Sensor 2 ativo (Semáforo 2 = HIGH / Semáforo 1 = LOW)
-
-Semáforo 2 → Verde
-
-Semáforo 1 → Vermelho
-
-Se o outro semáforo estiver verde, o código aciona a transição amarela (amarelo1() ou amarelo2()) antes de mudar para vermelho, garantindo uma troca segura.
-
-⚙️ Componentes Utilizados
-Componente	Quantidade	Pinos Arduino
-LED Verde Semáforo 1 (com resistor embutido)	1	3
-LED Amarelo Semáforo 1 (com resistor embutido)	1	2
-LED Vermelho Semáforo 1 (com resistor embutido)	1	4
-LED Verde Semáforo 2 (com resistor embutido)	1	11
-LED Amarelo Semáforo 2 (com resistor embutido)	1	10
-LED Vermelho Semáforo 2 (com resistor embutido)	1	9
-Sensor de presença (Semáforo 1)	1	8
-Sensor de presença (Semáforo 2)	1	7
-Arduino UNO (ou similar)	1	—
-Protoboard e jumpers	—	—
+Protoboard
 
 💡 Observação: Os LEDs utilizados possuem resistores integrados, portanto não é necessário adicionar resistores externos no circuito.
 
-🔄 Funções Principais
+🔧 Ligações dos Componentes
+Pino Arduino	Componente
+2	LED Amarelo - Semáforo 1
+3	LED Verde - Semáforo 1
+4	LED Vermelho - Semáforo 1
+7	Sensor Semáforo 2
+8	Sensor Semáforo 1
+9	LED Vermelho - Semáforo 2
+10	LED Amarelo - Semáforo 2
+11	LED Verde - Semáforo 2
+🧩 Funções do Código
 
-apagarTodos()
-Desliga todos os LEDs antes de acender o próximo conjunto.
+apagarTodos() → Desliga todos os LEDs antes de ativar o próximo conjunto.
 
-amarelo1() / amarelo2()
-Realiza a transição segura (verde → amarelo → vermelho), com delay(2000) para o tempo do sinal amarelo.
+amarelo1() / amarelo2() → Realizam a transição segura (verde → amarelo → vermelho).
 
-Controle de tempo (millis())
-Gerencia o tempo de cada fase do ciclo automático sem travar o código principal.
+Controle com millis() → Permite medir o tempo dos ciclos sem travar o programa (diferente de delay()).
 
-💡 Como Usar
+💡 Como Utilizar
 
-Monte o circuito conforme a tabela de pinos.
+Monte o circuito conforme a tabela acima.
 
 Carregue o código no Arduino.
 
-Abra o Monitor Serial (9600 baud) para observar o estado dos sensores.
+Abra o Monitor Serial (9600 baud) para acompanhar o estado dos sensores.
 
-Ative/desative os sensores manualmente (ou aproxime objetos, caso use sensores IR).
+Ative os sensores manualmente (ou aproxime um objeto, caso use sensores IR).
 
-Observe a mudança dos LEDs conforme o modo de operação.
+Observe a mudança automática dos LEDs conforme o modo de operação.
+
+👤 Autores
+
+Thomas Adrian
+🔗 GitHub
+
+<p align="left"> <a href="https://www.linkedin.com/in/thomas-adrian" target="blank"> <img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg" alt="https://www.linkedin.com/in/thomas-adrian" height="30" width="40" /> </a> </p>
+
+Samuel Amate
+🔗 GitHub
+
+<p align="left"> <a href="https://linkedin.com/in/samuel-amate" target="blank"> <img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg" alt="https://linkedin.com/in/samuel-amate" height="30" width="40" /> </a> </p>
