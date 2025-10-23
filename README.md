@@ -1,63 +1,76 @@
-# 🚦 Projeto: Semáforo Inteligente com Arduino
+🚦 Projeto Semáforo Inteligente com Sensores – Arduino
 
-Este projeto simula um **sistema de semáforo inteligente** utilizando o Arduino. Dois sensores detectam a presença de veículos e controlam dois semáforos de forma automática. Quando nenhum sensor detecta veículos, os semáforos piscam em amarelo como forma de alerta.
+Este projeto implementa um sistema de controle de semáforos inteligentes usando um Arduino.
+O código gerencia dois cruzamentos (Semáforo 1 e Semáforo 2) com LEDs representando as luzes verde, amarela e vermelha, além de utilizar sensores de presença para detectar o fluxo de veículos e ajustar o comportamento do semáforo em tempo real.
 
----
+🧠 Lógica do Sistema
 
-## 📋 Descrição
+O sistema possui dois modos de funcionamento principais:
 
-O sistema conta com dois sensores digitais (um para cada direção) e dois conjuntos de LEDs representando os semáforos:
+1. Modo Automático (sem sensores acionados)
 
-- **Semáforo 1**: Verde1 (pino 4), Amarelo1 (pino 2), Vermelho1 (pino 3)
-- **Semáforo 2**: Verde2 (pino 9), Amarelo2 (pino 10), Vermelho2 (pino 11)
+Quando ambos os sensores estão ativados (HIGH), o sistema executa um ciclo temporizado fixo:
 
-### Lógica:
+Ciclo	Tempo (ms)	Semáforo 1	Semáforo 2
+1	0 – 5000	Verde	Vermelho
+2	5000 – 6000	Amarelo	Vermelho
+3	6000 – 9000	Vermelho	Verde
+4	9000 – 10000	Vermelho	Amarelo
 
-- 🚗 Sensor 1 ativo, Sensor 2 inativo → Semáforo 1 verde, Semáforo 2 vermelho  
-- 🚗 Sensor 2 ativo, Sensor 1 inativo → Semáforo 2 verde, Semáforo 1 vermelho  
-- 🚦  Nenhum sensor ativo → ambos amarelos piscando intermitente
-- ❌ Ambos sensores ativos → ambos amarelos acesos (alerta)
+Após 10 segundos, o ciclo é reiniciado automaticamente.
 
----
+2. Modo Sensores (tráfego dinâmico)
 
-## 🔌 Componentes Utilizados
+Quando um dos sensores detecta um veículo (HIGH) e o outro não (LOW), o semáforo correspondente recebe prioridade:
 
-- 1x Arduino Uno (ou compatível)
-- 6x LEDs (2 verdes, 2 amarelos, 2 vermelhos)
-- 2x Sensores digitais (simulando sensores de presença)
-- Resistores de 220Ω
-- Jumpers
-- Protoboard
+🚗 Sensor 1 ativo (Semáforo 1 = HIGH / Semáforo 2 = LOW)
 
----
+Semáforo 1 → Verde
 
-## 🔧 Ligações dos Componentes
+Semáforo 2 → Vermelho
 
-| Pino Arduino | Componente               |
-|--------------|--------------------------|
-| 2            | LED Amarelo - Semáforo 1 |
-| 3            | LED Vermelho - Semáforo 1|
-| 4            | LED Verde - Semáforo 1   |
-| 7            | Sensor Semáforo 2        |
-| 8            | Sensor Semáforo 1        |
-| 9            | LED Verde - Semáforo 2   |
-| 10           | LED Amarelo - Semáforo 2 |
-| 11           | LED Vermelho - Semáforo 2|
+🚗 Sensor 2 ativo (Semáforo 2 = HIGH / Semáforo 1 = LOW)
 
-👤 Autores
+Semáforo 2 → Verde
 
-Thomas Adrian
-https://github.com/Thomas-Adrian-Soler-Nilsson
-<p align="left">
-  <a href="https://www.linkedin.com/in/thomas-adrian" target="blank">
-    <img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg" alt="https://www.linkedin.com/in/thomas-adrian" height="30" width="40" />
-  </a>
-</p>
+Semáforo 1 → Vermelho
 
-Samuel Amate
-https://github.com/SamuelAmate
-<p align="left">
-  <a href="https://linkedin.com/in/samuel-amate" target="blank">
-    <img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg" alt="https://linkedin.com/in/samuel-amate" height="30" width="40" />
-  </a>
-</p>
+Se o outro semáforo estiver verde, o código aciona a transição amarela (amarelo1() ou amarelo2()) antes de mudar para vermelho, garantindo uma troca segura.
+
+⚙️ Componentes Utilizados
+Componente	Quantidade	Pinos Arduino
+LED Verde Semáforo 1 (com resistor embutido)	1	3
+LED Amarelo Semáforo 1 (com resistor embutido)	1	2
+LED Vermelho Semáforo 1 (com resistor embutido)	1	4
+LED Verde Semáforo 2 (com resistor embutido)	1	11
+LED Amarelo Semáforo 2 (com resistor embutido)	1	10
+LED Vermelho Semáforo 2 (com resistor embutido)	1	9
+Sensor de presença (Semáforo 1)	1	8
+Sensor de presença (Semáforo 2)	1	7
+Arduino UNO (ou similar)	1	—
+Protoboard e jumpers	—	—
+
+💡 Observação: Os LEDs utilizados possuem resistores integrados, portanto não é necessário adicionar resistores externos no circuito.
+
+🔄 Funções Principais
+
+apagarTodos()
+Desliga todos os LEDs antes de acender o próximo conjunto.
+
+amarelo1() / amarelo2()
+Realiza a transição segura (verde → amarelo → vermelho), com delay(2000) para o tempo do sinal amarelo.
+
+Controle de tempo (millis())
+Gerencia o tempo de cada fase do ciclo automático sem travar o código principal.
+
+💡 Como Usar
+
+Monte o circuito conforme a tabela de pinos.
+
+Carregue o código no Arduino.
+
+Abra o Monitor Serial (9600 baud) para observar o estado dos sensores.
+
+Ative/desative os sensores manualmente (ou aproxime objetos, caso use sensores IR).
+
+Observe a mudança dos LEDs conforme o modo de operação.
