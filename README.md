@@ -106,11 +106,11 @@ Observe a mudança automática dos LEDs conforme o modo de operação.
 👤 Autores
 
 Thomas Adrian
-🔗 GitHub
+🔗 https://github.com/Thomas-Adrian-Soler-Nilsson
 
 <p align="left"> <a href="https://www.linkedin.com/in/thomas-adrian" target="blank"> <img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg" alt="https://www.linkedin.com/in/thomas-adrian" height="30" width="40" /> </a> </p>
 
 Samuel Amate
-🔗 GitHub
+🔗 https://github.com/SamuelAmate
 
 <p align="left"> <a href="https://linkedin.com/in/samuel-amate" target="blank"> <img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg" alt="https://linkedin.com/in/samuel-amate" height="30" width="40" /> </a> </p>
